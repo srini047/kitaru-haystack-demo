@@ -11,7 +11,7 @@ from haystack_integrations.components.retrievers.qdrant import (
     QdrantHybridRetriever,
 )
 
-from constants import (
+from utils.constants import (
     EMBEDDING_MODEL,
     SPARSE_EMBEDDING_MODEL,
     EMBEDDING_DIM,
@@ -37,6 +37,7 @@ document_store = QdrantDocumentStore(
 retriever = QdrantHybridRetriever(document_store=document_store)
 
 
+# Checkpoint dense embedding on the query
 @checkpoint
 def embed_query(query: str) -> list[float]:
     """
@@ -50,6 +51,7 @@ def embed_query(query: str) -> list[float]:
     return result["embedding"]
 
 
+# Checkpoint sparse embedding on the query
 @checkpoint
 def sparse_embed_query(query: str) -> SparseEmbedding:
     """
@@ -63,6 +65,7 @@ def sparse_embed_query(query: str) -> SparseEmbedding:
     return result["sparse_embedding"]
 
 
+# Checkpoint retrieval on the document store
 @checkpoint(cache=False)
 def retrieve_documents(
     embedding: list[float],
@@ -87,6 +90,7 @@ def retrieve_documents(
     return result["documents"]
 
 
+# Retrieval Flow
 @flow
 def retrieval_flow(
     query: str,

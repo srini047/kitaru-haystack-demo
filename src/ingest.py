@@ -13,7 +13,7 @@ from haystack.components.writers import DocumentWriter
 from haystack_integrations.document_stores.qdrant import QdrantDocumentStore
 from haystack.document_stores.types import DuplicatePolicy
 
-from constants import QDRANT_INDEX, EMBEDDING_DIM, EMBEDDING_MODEL
+from utils.constants import QDRANT_INDEX, EMBEDDING_DIM, EMBEDDING_MODEL
 
 
 # Haystack Pipeline Checkpoint
