@@ -11,7 +11,7 @@ from haystack_integrations.components.retrievers.qdrant import (
     QdrantHybridRetriever,
 )
 
-from utils.constants import (
+from src.utils.constants import (
     EMBEDDING_MODEL,
     SPARSE_EMBEDDING_MODEL,
     EMBEDDING_DIM,

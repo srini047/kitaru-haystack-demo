@@ -13,7 +13,13 @@ from haystack.components.writers import DocumentWriter
 from haystack_integrations.document_stores.qdrant import QdrantDocumentStore
 from haystack.document_stores.types import DuplicatePolicy
 
-from utils.constants import QDRANT_INDEX, EMBEDDING_DIM, EMBEDDING_MODEL
+from src.utils.constants import (
+    QDRANT_INDEX,
+    QDRANT_HOST,
+    QDRANT_PORT,
+    EMBEDDING_DIM,
+    EMBEDDING_MODEL,
+)
 
 
 # Haystack Pipeline Checkpoint
@@ -51,14 +57,9 @@ def embed_documents(documents: list[Document]) -> list[Document]:
 # Haystack Document Write Checkpoint
 @checkpoint(cache=False)
 def write_documents(documents: list[Document]) -> int:
-    """
-    Write to Qdrant Document Store
-
-
-    """
     document_store = QdrantDocumentStore(
-        host="localhost",
-        port=6333,
+        host=QDRANT_HOST,
+        port=QDRANT_PORT,
         index=QDRANT_INDEX,
         recreate_index=False,
         embedding_dim=EMBEDDING_DIM,
@@ -72,7 +73,7 @@ def write_documents(documents: list[Document]) -> int:
 
 # Flow
 @flow
-def document_ingestion_flow(csv_file_path: Path | None):
+def document_ingestion_flow(csv_file_path: Path | None) -> int:
     """
     Flow to ingest documents from a CSV file.
 

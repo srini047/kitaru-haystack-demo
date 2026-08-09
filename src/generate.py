@@ -24,8 +24,7 @@ def run_generation_pipeline(query: str, documents: list[Document]) -> str:
     prompt_builder = ChatPromptBuilder(
         template=[
             ChatMessage.from_system("Answer only using the provided context."),
-            ChatMessage.from_user(
-                """
+            ChatMessage.from_user("""
 Context:
 {% for doc in documents %}
 {{ doc.content }}
@@ -33,8 +32,7 @@ Context:
 
 Question:
 {{ query }}
-"""
-            ),
+"""),
         ]
     )
 
