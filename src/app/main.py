@@ -84,7 +84,7 @@ async def handle_query():
             ).wait()
         )
 
-        answer.content = result["response"]
+        answer.set_content(result)
 
     except Exception as exc:
         ui.notify(
