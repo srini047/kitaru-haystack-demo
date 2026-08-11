@@ -55,7 +55,7 @@ def embed_documents(documents: list[Document]) -> list[Document]:
 
 
 # Haystack Document Write Checkpoint
-@checkpoint(cache=False)
+@checkpoint
 def write_documents(documents: list[Document]) -> int:
     document_store = QdrantDocumentStore(
         host=QDRANT_HOST,
@@ -72,7 +72,7 @@ def write_documents(documents: list[Document]) -> int:
 
 
 # Flow
-@flow
+@flow(cache=False)
 def document_ingestion_flow(csv_file_path: Path | None) -> int:
     """
     Flow to ingest documents from a CSV file.
